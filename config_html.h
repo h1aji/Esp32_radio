@@ -26,7 +26,7 @@ const char config_html[] PROGMEM = R"=====(
    <h3>Available WiFi networks
    <select class="select" onChange="handletone(this)" id="ssid"></select>
    </h3>
-   <textarea rows="20" cols="100" id="prefs">Loading preferences</textarea> 
+   <textarea rows="20" cols="100" id="prefs">Loading preferences</textarea>
    <br>
    <button class="button" onclick="fsav()">Save</button>
    &nbsp;&nbsp;
@@ -84,11 +84,11 @@ const char config_html[] PROGMEM = R"=====(
         // Remove empty lines
         while ( str.indexOf ( "\r\n\r\n" ) >= 0 )
         {
-          str = str.replace ( /\r\n\r\n/g, "\r\n" )      
+          str = str.replace ( /\r\n\r\n/g, "\r\n" )
         }
         while ( str.indexOf ( "\n\n" ) >= 0 )
         {
-          str = str.replace ( /\n\n/g, "\n" )      
+          str = str.replace ( /\n\n/g, "\n" )
         }
         xhr.open ( "POST", theUrl, true ) ;
         xhr.setRequestHeader ( "Content-type", "application/x-www-form-urlencoded" ) ;
@@ -106,7 +106,6 @@ const char config_html[] PROGMEM = R"=====(
         if ( xhr.readyState == XMLHttpRequest.DONE )
         {
           networks = xhr.responseText.split ( "|" ) ;
-          
           for ( i = 0 ; i < ( networks.length - 1 ) ; i++ )
           {
             opt = document.createElement( "OPTION" ) ;

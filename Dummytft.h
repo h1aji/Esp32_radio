@@ -13,10 +13,10 @@
 
 // Various macro's to mimic the ST7735 version of display functions
 #define dsp_setRotation()                                          // Use standard landscape format
-#define dsp_print(a)                                               // Print a string 
+#define dsp_print(a)                                               // Print a string
 #define dsp_println(a)                                             // Print string plus newline
 #define dsp_setTextSize(a)                                         // Set the text size
-#define dsp_setTextColor(a)                              
+#define dsp_setTextColor(a)
 #define dsp_setCursor(a,b)                                         // Position the cursor
 #define dsp_erase()                                                // Clear the screen
 #define dsp_getwidth()      0                                      // Get width of screen
@@ -69,5 +69,3 @@ void displayvolume()
 void displaytime ( const char* str, uint16_t color )
 {
 }
-
-

@@ -6,28 +6,28 @@ In this fork I have added support for LCD2004 and improved SSD1306
 Look for documentation and printdesign in the doc directory.
 
 Features:
--	Can connect to thousands of Internet radio stations that broadcast MP3 or Ogg audio streams.
+- Can connect to thousands of Internet radio stations that broadcast MP3 or Ogg audio streams.
 - Can connect to a standalone mp3 file on a server.
 - Support for .m3u playlists.
 - Can play mp3 tracks from SD card.
--	Uses a minimal number of components; no Arduino required.
--	Handles bitrates up to 320 kbps.
--	Has a preset list of maximal 100 favorite radio stations in configuration file.
+- Uses a minimal number of components; no Arduino required.
+- Handles bitrates up to 320 kbps.
+- Has a preset list of maximal 100 favorite radio stations in configuration file.
 - Configuration (preferences) can be edited through web interface.
--	Can be controlled by a tablet or other device through a build-in webserver.
+- Can be controlled by a tablet or other device through a build-in webserver.
 - Can be controlled over MQTT.
 - Can be controlled over Serial Input.
 - Can be controlled by IR.
--	Can be controlled by rotary switch encoder.
+- Can be controlled by rotary switch encoder.
 - Can be controlled by touch pins.
--	Up to 14 free input pins can be configured to control the radio.
--	The strongest available WiFi network is automatically selected.
--	Heavily commented source code, easy to add extra functionality.
--	Debug information through serial output.
--	Uses a 12 kB queue to provide smooth playback.
--	Software update over WiFi possible (OTA) through Arduino IDE or remote host.
--	Bass and treble control.
--	Saves volume, bass, treble and preset station over restart.
+- Up to 14 free input pins can be configured to control the radio.
+- The strongest available WiFi network is automatically selected.
+- Heavily commented source code, easy to add extra functionality.
+- Debug information through serial output.
+- Uses a 12 kB queue to provide smooth playback.
+- Software update over WiFi possible (OTA) through Arduino IDE or remote host.
+- Bass and treble control.
+- Saves volume, bass, treble and preset station over restart.
 - Configuration also possible if no WiFi connection can be established.
 - Can play iHeartRadio stations.
 - Displays time of day on TFT.
@@ -36,7 +36,8 @@ Features:
 
 See documentation in doc/pdf-file.
 
-Last changes:
+Changelog:
+- 10-jul-2020, Support for USB drive (CH376).
 - 12-may-2020, Increased font size for SSD1306.
                Replaced LCD 1602 with 2004. Thanks to @mrohner.
 - 23-mar-2020, Allow playlists  on SD card.

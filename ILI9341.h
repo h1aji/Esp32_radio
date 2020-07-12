@@ -34,8 +34,8 @@ Adafruit_ILI9341*     tft = NULL ;                                  // For insta
 
 // Various macro's to mimic the ILI9341 version of display functions
 #define dsp_setRotation()       tft->setRotation ( 3 )             // Use landscape format (3 for upside down)
-#define dsp_print(a)            tft->print ( a )                   // Print a string 
-#define dsp_println(b)          tft->println ( b )                 // Print a string followed by newline 
+#define dsp_print(a)            tft->print ( a )                   // Print a string
+#define dsp_println(b)          tft->println ( b )                 // Print a string followed by newline
 #define dsp_fillRect(a,b,c,d,e) tft->fillRect ( a, b, c, d, e ) ;  // Fill a rectange
 #define dsp_setTextSize(a)      tft->setTextSize(a)                // Set the text size
 #define dsp_setTextColor(a)     tft->setTextColor(a)               // Set the text color
@@ -105,17 +105,17 @@ void displayvolume()
   {
     static uint8_t oldvol = 0 ;                         // Previous volume
     uint8_t        newvol ;                             // Current setting
-    uint16_t       pos ;                                // Positon of volume indicator
+    uint16_t       len ;                                // Length of volume indicator in pixels
 
     newvol = vs1053player->getVolume() ;                // Get current volume setting
     if ( newvol != oldvol )                             // Volume changed?
     {
       oldvol = newvol ;                                 // Remember for next compare
-      pos = map ( newvol, 0, 100, 0, dsp_getwidth() ) ; // Compute position on TFT
+      len = map ( newvol, 0, 100, 0, dsp_getwidth() ) ; // Compute length on TFT
       dsp_fillRect ( 0, dsp_getheight() - 2,
-                     pos, 2, RED ) ;                    // Paint red part
-      dsp_fillRect ( pos, dsp_getheight() - 2,
-                     dsp_getwidth() - pos, 2, GREEN ) ; // Paint green part
+                     len, 2, RED ) ;                    // Paint red part
+      dsp_fillRect ( len, dsp_getheight() - 2,
+                     dsp_getwidth() - len, 2, GREEN ) ; // Paint green part
     }
   }
 }
@@ -159,5 +159,3 @@ void displaytime ( const char* str, uint16_t color )
     }
   }
 }
-
-

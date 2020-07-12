@@ -60,7 +60,7 @@
 #define dsp_println(a)                                             // Print string plus newline
 #define dsp_fillRect(a,b,c,d,e)                                    // Fill a rectange
 #define dsp_setTextSize(a)                                         // Set the text size
-#define dsp_setTextColor(a)                              
+#define dsp_setTextColor(a)
 #define dsp_setCursor(a,b)                                         // Position the cursor
 #define dsp_erase()         tft->sclear()                          // Clear the screen
 #define dsp_getwidth()      20                                     // Get width of screen
@@ -201,9 +201,9 @@ void LCD2004::print ( char c )
 void LCD2004::scursor ( uint8_t col, uint8_t row )
 {
   const int row_offsets[] = { 0x00, 0x40, 0x14, 0x54 } ;
-  
+
   write_cmd ( COMMAND_SET_DDRAM_ADDR |
-              ( col + row_offsets[row] ) ) ; 
+              ( col + row_offsets[row] ) ) ;
 }
 
 
@@ -311,7 +311,7 @@ struct dsp_str
   String          str ;
   uint16_t        len ;                                 // Length of string to show
   uint16_t        pos ;                                 // Start on this position of string
-  uint8_t         row ;                                 // Row on display  
+  uint8_t         row ;                                 // Row on display
 } ;
 
 dsp_str dline[4] = { { "", 0, 0, 0 },
@@ -321,7 +321,7 @@ dsp_str dline[4] = { { "", 0, 0, 0 },
                    } ;
 
 //***********************************************************************************************
-//                                D S P _U P D A T E _ L I N E                                  *
+//                                D S P _ U P D A T E _ L I N E                                  *
 //***********************************************************************************************
 // Show a selected line                                                                         *
 //***********************************************************************************************
@@ -401,7 +401,7 @@ void dsp_update()
   {
     dline[2].str = tftdata[1].str ;                     // Local copy
     dline[1].str = tftdata[2].str ;                     // Local copy
-  }  
+  }
   dline[2].str.trim() ;                                 // Remove non printing
   dline[1].str.trim() ;                                 // Remove non printing
   if ( dline[2].str.length() > dsp_getwidth() )
@@ -447,7 +447,7 @@ void displayvolume(){
       for ( int i = 0 ; i < pos ; i++ )                     // Set oldstr to dots
         dline[3].str += "-";                                // Local copy
       for ( int i = 0 ; i < dsp_getwidth()-pos ; i++ )
-        dline[3].str += " ";          
+        dline[3].str += " ";
       dsp_update_line(3);
     }
 }
@@ -460,24 +460,24 @@ void displayvolume(){
 //**************************************************************************************************
 void displaytime ( const char* str, uint16_t color ){
   const char* WDAYS [] ={"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
-  char        datetxt[21] ;                           
+  char        datetxt[21] ;
   sprintf ( datetxt, "%03s %02d.%02d.  %08s",                // Format new time to a string
                   WDAYS[timeinfo.tm_wday-1],
                   timeinfo.tm_mday,
                   timeinfo.tm_mon,
                   str) ;
   char oldstr[21] = "...................." ;             // For compare
-  uint8_t     i ;                                  // Index in strings
-  if ( datetxt[14] == '0' ) {                           // Empty string?
-    for ( int i = 0 ; i < 21 ; i++ )                    // Set oldstr to dots
+  uint8_t     i ;                                        // Index in strings
+  if ( datetxt[14] == '0' ) {                            // Empty string?
+    for ( int i = 0 ; i < 21 ; i++ )                     // Set oldstr to dots
        oldstr[i] = '.' ;
-    return ;                                       // No actual display yet
+    return ;                                             // No actual display yet
   }
-  
-    if ( datetxt != oldstr ) {                  // Difference?
-       dline[0].str = datetxt;          
+
+    if ( datetxt != oldstr ) {                           // Difference?
+       dline[0].str = datetxt;
        dsp_update_line(0);
-       for ( int i = 0 ; i < 21 ; i++ )                    // Set oldstr to dots
+       for ( int i = 0 ; i < 21 ; i++ )                  // Set oldstr to dots
        oldstr[i] = datetxt[i] ;
       }
 }

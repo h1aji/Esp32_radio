@@ -14,10 +14,10 @@
 
 // Various macro's to mimic the ST7735 version of display functions
 #define dsp_setRotation()                                          // Use standard landscape format
-#define dsp_print(a)                                               // Print a string 
+#define dsp_print(a)                                               // Print a string
 #define dsp_fillRect(a,b,c,d,e)                                    // Fill a rectange
 #define dsp_setTextSize(a)                                         // Set the text size
-#define dsp_setTextColor(a)                              
+#define dsp_setTextColor(a)
 #define dsp_setCursor(a,b)                                         // Position the cursor
 #define dsp_erase()                                                // Erase screen
 #define dsp_getwidth()      320                                    // Get width of screen
@@ -90,7 +90,7 @@ void dsp_update()                                            // Updates to the p
     {
       if ( tftdata[inx].update_req )
       {
-        dbgprint ( "Nextion t%d.txt=\"%s\"", inx, tftdata[inx].str.c_str() ) ; 
+        dbgprint ( "Nextion t%d.txt=\"%s\"", inx, tftdata[inx].str.c_str() ) ;
         nxtserial->printf ( "t%d.txt=\"%s\"\xFF\xFF\xFF", inx, tftdata[inx].str.c_str() ) ;
         tftdata[inx].update_req = false ;
       }
@@ -172,4 +172,3 @@ void displaytime ( const char* str, uint16_t color )
     oldtim = str[7] ;                              // Remember for next compare
   }
 }
-

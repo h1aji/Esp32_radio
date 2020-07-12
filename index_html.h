@@ -203,7 +203,7 @@ const char index_html[] PROGMEM = R"=====(
          sel.selectedIndex = i;
      }
    }
-   
+
    // Fill preset list initially
    //
    var i, sel, opt, lines, parts ;
