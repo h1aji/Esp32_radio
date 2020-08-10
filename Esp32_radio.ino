@@ -151,11 +151,12 @@
 // 23-03-2020, ES: Allow playlists on SD card.
 // 25-03-2020, ES: End of playlist: start over.
 // 09-07-2020, ES: Add CH376 support.
+// 14-07-2020, ES: Dynamic status display in webinterface.
 //
 //
 // Define the version number, also used for webserver as Last-Modified header and to
 // check version for update.  The format must be exactly as specified by the HTTP standard!
-#define VERSION     "Sat, 11 Jul 2020 11:45:00 GMT"
+#define VERSION     "Tue, 14 Jul 2020 09:40:00 GMT"
 // ESP32-Radio can be updated (OTA) to the latest version from a remote server.
 // The download uses the following server and files:
 #define UPDATEHOST  "smallenburg.nl"                    // Host for software updates
@@ -163,13 +164,13 @@
 #define TFTFILE     "/Arduino/ESP32-Radio.tft"          // Binary file name for update NEXTION image
 //
 // Define type of local filesystem(s).  See documentation.
-#define CH376                          // For CXH376 support (reading files from USB stick)
+//#define CH376                          // For CXH376 support (reading files from USB stick)
 #define SDCARD                         // For SD card support (reading files from SD card)
 // Define (just one) type of display.  See documentation.
-#define BLUETFT                        // Works also for RED TFT 128x160
+//#define BLUETFT                        // Works also for RED TFT 128x160
 //#define OLED                         // 64x128 I2C OLED
 //#define DUMMYTFT                     // Dummy display
-//#define LCD2004I2C                   // LCD 2004 display with I2C backpack
+#define LCD2004I2C                   // LCD 2004 display with I2C backpack
 //#define ILI9341                      // ILI9341 240*320
 //#define NEXTION                      // Nextion display. Uses UART 2 (pin 16 and 17)
 //
@@ -1085,7 +1086,7 @@ void  VS1053::output_enable ( bool ena )               // Enable amplifier throu
 }
 
 
-void VS1053::AdjustRate ( long ppm2 )                  // Fine tune the data rate 
+void VS1053::AdjustRate ( long ppm2 )                  // Fine tune the data rate
 {
   write_register ( SCI_WRAMADDR, 0x1e07 ) ;
   write_register ( SCI_WRAM,     ppm2 ) ;
@@ -5455,6 +5456,7 @@ void playtask ( void * parameter )
           vs1053player->setVolume ( 0 ) ;                           // Mute
           vs1053player->stopSong() ;                                // STOP, stop player
           releaseSPI() ;                                            // Release SPI bus
+          while ( xQueueReceive ( dataqueue, &inchunk, 0 ) ) ;      // Flush rest of queue
           vTaskDelay ( 500 / portTICK_PERIOD_MS ) ;                 // Pause for a short time
           break ;
         default:
