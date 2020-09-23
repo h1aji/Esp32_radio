@@ -430,38 +430,45 @@ void displaybattery()
 //**************************************************************************************************
 //                                      D I S P L A Y V O L U M E                                  *
 //**************************************************************************************************
-// Dummy routine for this type of display.                                                         *
+// Display volume for this type of display.                                                        *
 //**************************************************************************************************
-void displayvolume(){
-  static uint8_t   oldvol = 0 ;                             // Previous volume
-    uint8_t        newvol ;                                 // Current setting
-    uint16_t       pos ;                                    // Positon of volume indicator
+void displayvolume()
+{
+  static uint8_t   oldvol = 0 ;                       // Previous volume
+  uint8_t          newvol ;                           // Current setting
+  uint16_t         pos ;                              // Positon of volume indicator
 
-    dline[3].str = "";
+  dline[3].str = "";
 
-    newvol = vs1053player->getVolume() ;                    // Get current volume setting
-    if ( newvol != oldvol )                                 // Volume changed?
+  newvol = vs1053player->getVolume() ;                // Get current volume setting
+  if ( newvol != oldvol )                             // Volume changed?
+  {
+    oldvol = newvol ;                                 // Remember for next compare
+    pos = map ( newvol, 0, 100, 0, dsp_getwidth() ) ; // Compute end position on TFT
+    for ( int i = 0 ; i < dsp_getwidth() ; i++ )      // Set oldstr to dots
     {
-      oldvol = newvol ;                                     // Remember for next compare
-      pos = map ( newvol-39, 0, 100, 0, dsp_getwidth() ) ;  // Compute position on TFT (-39 as I can hear nothing with this volume)
-      for ( int i = 0 ; i < pos ; i++ )                     // Set oldstr to dots
-        dline[3].str += "*";                                // Local copy
-      for ( int i = 0 ; i < dsp_getwidth()-pos ; i++ )
-        dline[3].str += " ";
-      dsp_update_line(3);
+      if ( i <= pos )
+      {
+        dline[3].str += "#" ;                         // Add hash character
+      }
+      else
+      {
+        dline[3].str += " " ;                         // Or blank sign
+      }
     }
+    dsp_update_line(3) ;
+  }
 }
-
 
 //**************************************************************************************************
 //                                      D I S P L A Y T I M E                                      *
 //**************************************************************************************************
-//                                                         *
+//                                                                                                 *
 //**************************************************************************************************
 void displaytime ( const char* str, uint16_t color ){
   const char* WDAYS [] ={"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
   char        datetxt[21] ;
-  sprintf ( datetxt, "%03s %02d.%02d.  %08s",                // Format new time to a string
+  sprintf ( datetxt, "%03s %02d.%02d.  %08s",            // Format new time to a string
                   WDAYS[timeinfo.tm_wday-1],
                   timeinfo.tm_mday,
                   timeinfo.tm_mon,
